@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Merve's Artworks</title>
+	<meta charset="utf-8">
+	<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	<link href="https://fonts.googleapis.com/css?family=Amatic+SC|Roboto" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script></head>
+<body>
+<!-- Navbar -->
+	<nav class="navbar navbar-expand-md flex-column navbar-dark" style="background-color: #FAA1A3;">
+	    <a class="navbar-brand align-self-center m-0 pb-3  pb-md-0" href="/" style="font-family: 'Amatic SC', cursive; font-size: 36pt;">Merve's Artworks</a>
+	    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+	        <span class="navbar-toggler-icon"></span>
+	    </button>
+	    <div class="collapse navbar-collapse justify-content-md-center w-100" id="navbarNav">
+	        <ul class="navbar-nav text-center">
+	            <li class="nav-item active" >
+	                <a class="nav-link" href="/">Store<span class="sr-only">(current)</span></a>
+	            </li>
+	            <li class="nav-item">
+	                <a class="nav-link" href="#">Works</a>
+	            </li>
+	            <li class="nav-item">
+	                <a class="nav-link" href="#">About me</a>
+	            </li>
+	            <li class="nav-item">
+	                <a class="nav-link" href="#">Contact</a>
+	            </li>
+	        </ul>
+	    </div></nav> 
+<!-- Cart/Login -->
+	<div class="container-fluid container">
+		<ul class="nav justify-content-end navbar-dark" style="margin-top: 10px;margin-bottom: -10px;">
+			{% if auth %}
+			<li class="nav-item">
+        		<a href="#AddModal" class="nav-link link-dark trigger-btn special-button" data-toggle="modal" >Ürün İşlemleri</a>
+        	</li> {% endif %}
+        	<li class="nav-item">
+        		<a class="nav-link link-dark link-pink" href="/cart">&nbsp;&nbsp;Sepet</a>
+        	</li>
+	      	<li class="nav-item">
+	      		{% if logged_in %}
+					<a class="nav-link link-dark link-pink" href="/logout">Çıkış Yap</a>
+				{% else %}
+					<a class="nav-link link-dark link-pink" href="#LoginModal" class="trigger-btn" data-toggle="modal">Giriş Yap</a>
+				{% endif %}
+	      	</li>
+	    </ul></div>
+<!-- Products -->
+  <content>
+    <h2 style="font-family: 'Amatic SC', cursive; font-size: 30pt;">Drawings</h2>
+    <div class="container-fluid">
+      <div class="container">
+        <div class="row">
+			{% for p in products %}
+			<div class="col-md-4 product">
+				<div class="col-md-12 one-column">
+				<div style="background-image:url({{p.image}});" class="index-image"></div>
+				<hr>
+				<h3 class="font" ">{{p.name}}</h3>
+				<p class="price font" >{{p.price}}</p>
+				{% if p.stock == 0 %}
+					<a class="out-of-stock purchase font">Tükendi</a>
+				{% else %}
+				{% if logged_in %}
+				<form role="form" action="{{url_for('addtocart', productid = p.id,fromcart = 'False')}}" method="POST">
+				{% endif %}
+					<input name="sname" type="text" value={{p.name}} hidden="true">
+					<input type="submit" value="Sepete Ekle" class="purchase special-button p-special font">
+				</form>
+				{% endif %}
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+      </div>
+    </div></content>
+<!-- Admin İşlemleri -->  
+	{% if auth %}
+		<!-- Add Product -->
+		<div id="AddModal" class="modal fade">
+			<div class="modal-dialog modal-login">
+				<div class="modal-content">
+					<div class="modal-header">				
+						<h2 class="modal-title">Ekle</h2>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">
+						<form role="form" action="{{url_for('addproduct')}}" method="POST">
+							<div class="form-group">
+								<input name="pname" autocomplete="off" type="text" class="form-control" placeholder="İsmi">
+							</div>
+							<div class="form-group">
+								<input name="price" autocomplete="off" type="text" class="form-control" placeholder="Fiyatı">
+							</div>
+							<div class="form-group">
+								<input name="pstock" autocomplete="off" type="text" class="form-control" placeholder="Stok durumu">
+							</div>
+							<div class="form-group">
+								<input name="pimage" autocomplete="off" type="text" class="form-control" placeholder="Resim Linki">
+							</div>
+							<div class="form-group">
+								<select name="cats">
+								    <option value="Geleneksel">Geleneksel</option>
+								    <option value="Dijital">Dijital</option>
+							  	</select>
+							</div>
+							<div class="form-group">
+								<select name="features">
+									<option value="Siyah Beyaz">Siyah Beyaz</option>
+								    <option value="Renkli">Renkli</option>
+							  	</select>
+							</div>
+							<div class="form-group">
+								<input type="submit" class="btn btn-primary btn-block btn-lg" value="Ekle">
+							</div>
+						</form>
+						<div class="modal-footer">
+							<a href="#UpdateModal" data-dismiss="modal" data-toggle="modal">Güncelle</a>
+							<a href="#DeleteModal" data-dismiss="modal" data-toggle="modal">Sil</a>
+						</div>	
+					</div>
+				</div>
+			</div></div>
+			<div id="UpdateModal" class="modal fade">
+			<div class="modal-dialog modal-login">
+				<div class="modal-content">
+					<div class="modal-header">				
+						<h2 class="modal-title">Güncelle</h2>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">
+						<form role="form" action="{{url_for('updateproduct')}}" method="POST">
+							<div class="form-group">
+								<input name="upsname" autocomplete="off" type="text" class="form-control" placeholder="Aranacak isim">
+							</div><hr>
+							<div class="form-group">
+								<input name="upname" autocomplete="off" type="text" class="form-control" placeholder="Yeni ismi">
+							</div>
+							<div class="form-group">
+								<input name="uprice" autocomplete="off" type="text" class="form-control" placeholder="Yeni fiyatı">
+							</div>
+							<div class="form-group">
+								<input name="upstock" autocomplete="off" type="text" class="form-control" placeholder="Yeni stok durumu">
+							</div>
+							<div class="form-group">
+								<select name="ucats">
+								    <option value="traditional">Geleneksel</option>
+								    <option value="digital">Dijital</option>
+							  	</select>
+							</div>
+							<div class="form-group">
+								<select name="ufeatures">
+									<option value="blacknwhite">Siyah Beyaz</option>
+								    <option value="colored">Renkli</option>
+							  	</select>
+							</div>
+							<div class="form-group">
+								<input type="submit" class="btn btn-primary btn-block btn-lg" value="Güncelle">
+							</div>
+						</form>
+						<div class="modal-footer">
+							<a href="#AddModal" data-dismiss="modal" data-toggle="modal">Ekle</a>
+							<a href="#DeleteModal" data-dismiss="modal" data-toggle="modal">Sil</a>
+						</div>				
+					</div>
+				</div>
+			</div></div>
+			<div id="DeleteModal" class="modal fade">
+			<div class="modal-dialog modal-login">
+				<div class="modal-content">
+					<div class="modal-header">				
+						<h2 class="modal-title">Sil</h2>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">
+						<form role="form" action="{{url_for('deleteproduct')}}" method="POST">
+							<div class="form-group">
+								<input name="dpname" autocomplete="off" type="text" class="form-control" placeholder="İsmi">
+							</div>
+							<div class="form-group">
+								<input type="submit" class="btn btn-primary btn-block btn-lg" value="Sil">
+							</div>
+						</form>	
+						<div class="modal-footer">
+							<a href="#AddModal" data-dismiss="modal" data-toggle="modal">Ekle</a>
+							<a href="#UpdateModal" data-dismiss="modal" data-toggle="modal">Güncelle</a>
+						</div>			
+					</div>
+				</div>
+			</div></div>{% endif %}
+<!-- Login Popup Modal -->
+	<div id="LoginModal" class="modal fade">
+		<div class="modal-dialog modal-login">
+			<div class="modal-content">
+				<div class="modal-header">				
+					<h4 class="modal-title">Giriş Yap</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">
+					<form role="form" action="{{url_for('login')}}" method="POST">
+						<div class="form-group">
+							<i class="fa fa-user"></i>
+							<input name="email" autocomplete="off" type="text" class="form-control" placeholder="E-mail" required="required">
+						</div>
+						<div class="form-group">
+							<i class="fa fa-lock"></i>
+							<input name="pw" autocomplete="off" type="password" class="form-control" placeholder="Şifre" required="required">					
+						</div>
+						<div class="form-group">
+							<input type="submit" class="btn btn-primary btn-block btn-lg" value="Giriş">
+						</div>
+					</form>				
+				</div>
+				<div class="modal-footer">
+					<a href="#RegisterModal" data-dismiss="modal" data-toggle="modal">Üye değil misin?</a>
+				</div>
+			</div>
+		</div></div>
+<!-- Register Popup Modal -->
+	<div id="RegisterModal" class="modal fade">
+		<div class="modal-dialog modal-login">
+			<div class="modal-content">
+				<div class="modal-header">				
+					<h4 class="modal-title">Üye Ol</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">
+					<form role="form" action="{{url_for('register')}}" method="POST">
+						<div class="form-group">
+							<i class="fa fa-user"></i>
+							<input name="name" autocomplete="off" type="text" class="form-control" placeholder="Ad Soyad" required="required">
+						</div>
+						<div class="form-group">
+							<i class="fa fa-envelope"></i>
+							<input name="email" type="text" autocomplete="off" class="form-control" placeholder="E-mail" required="required">
+						</div>
+						<div class="form-group">
+							<i class="fa fa-lock"></i>
+							<input name="pw" autocomplete="off" type="password" class="form-control" placeholder="Şifre" required="required">	
+						</div>
+						<div class="form-group">
+							<input type="submit" class="btn btn-primary btn-block btn-lg" value="Oluştur">
+						</div>
+					</form>				
+				</div>
+				<div class="modal-footer">
+					<a href="#LoginModal" data-dismiss="modal" data-toggle="modal">Zaten Üye misin?</a>
+				</div>
+			</div>
+		</div></div>
+	<!-- Footer -->
+		<footer class="container-fluid text-center" style="background-color: #333333; margin-top: 35px;">
+			<div class="container" style="padding-bottom: 10px;">
+		      <div class="icon-container">
+		        <a href="https://www.facebook.com/mervesartworks/" id="facebook-link">
+		          <span class="fa fa-facebook fa-2x" aria-hidden="true"></span>
+		        </a>
+		        <a href="https://twitter.com/merururuu" id="twitter-link" >
+		          <span class="fa fa-twitter fa-2x" aria-hidden="true" style="filter: grayscale();"></span>
+		        </a>
+		        <a href="https://www.instagram.com/merururuu/" id="instagram-link">
+		          <span class="fa fa-instagram fa-2x" aria-hidden="true" style="filter: grayscale();"></span>
+		        </a>
+		      </div>
+		      <p style="color: white;margin-top: -20px">All Rights Reserved © 2018</p>
+		    </div></footer>
+</body>
+</html>

@@ -1,0 +1,226 @@
+$nth-nav-item-that-needs-margin-right     : 2;
+$width-of-navbar-brand-or-logo-in-px      : 160px;
+$padding-x-for-navbar-brand-or-logo-in-px : 16px;
+
+@media (min-width: 768px) {
+	
+	.position-md-absolute {
+		position: absolute;
+	}
+	.navbar-nav .nav-item:nth-child(#{$nth-nav-item-that-needs-margin-right}) {
+		margin-right: $width-of-navbar-brand-or-logo-in-px + ($padding-x-for-navbar-brand-or-logo-in-px * 2);
+	}
+}
+.font {
+}
+.price {
+    padding: 10px;
+    text-align: right;
+    font-size: 23px;
+}
+.price:after { content:' ₺'; }
+
+body {
+
+    background-color: #f9f9f9!important;
+    font-family: 'Roboto', sans-serif!important;
+    margin: 0;
+    padding: 0;
+}
+.one-column {
+    width: 100%!important;
+    margin: 20px 0;
+    padding: 20px;
+    border: 2px solid #FBC3C4;
+    background-color: #FCFCFC;
+}
+.link-pink:hover {
+    color: #FAA1A3!important;
+}
+.special-button {
+    border: 1.5px solid #FAA1A3!important;
+    color: white!important;
+    font-weight: bolder!important;
+    background-color: #FAA1A3!important;
+    padding: 5px 20px!important;
+    margin-top: 4px!important;
+}
+.p-special {
+    margin-top: 0px!important;
+}
+.special-button:hover {
+    background-color: #f9f9f9!important;
+    color: #FAA1A3!important;
+}
+.product {
+    display: inline-block;
+}
+.cart {
+    font-family: 'Amatic SC', cursive;
+    font-size: 30pt;
+    margin-bottom: 35px;
+}
+.cart-column {
+    margin: 10px 0;
+    padding: 25px 20px;
+}
+.out-of-stock {
+    float: right;
+    color: #f8f8f8!important;
+    margin-right: 8px;
+    background-color: grey!important;
+    text-decoration: line-through!important;
+    border: 1.5px solid #f8f8f8!important;
+    font-weight: bolder!important;
+    padding: 5px 25px!important;
+}
+.index-image {
+    width: 100%;
+    height: 435px;
+    background-position:
+    center;background-size: cover;
+}
+.cart-image {
+    width: 180px;
+    height: 200px;
+    margin-right:20px;
+    background-position: center;
+    background-size: cover;
+    float:left;
+}
+.purchase {
+    float: right;
+    border: none;
+    background-color: rgba(0,0,0,0);
+    color: blue; 
+    font-size: 16px;
+    margin-right: 5px;
+}
+.purchase:hover {
+    color: orange; 
+}
+.increase {
+    color: black!important;
+    margin-top: 4px;
+    margin-left: 7px;
+    width:25px;
+    height:25px;
+    background-image: url('./images/plus.svg');
+    background-size: cover;
+}
+.decrease {
+    color: black!important;
+    margin-top: 4px;
+    margin-right: 7px;
+    width:25px;
+    height:25px;
+    background-image: url('./images/minus.svg');
+    background-size: cover;
+}
+.fa {
+    color: white;
+    opacity: .8;
+    margin: 30px 3px;
+}
+.fa:hover {
+    opacity: 1;
+}
+.link-dark {
+    opacity: .6;
+    color: black;
+}
+.link-dark:hover {
+    opacity: 1;
+}
+.nav-link {
+    font-family: 'Amatic SC', cursive; font-size: 24pt;
+}
+
+.modal-body {
+    float: right;
+}
+h2 {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+h2:before,
+h2:after {
+    content: '';
+    border-top: 2px dotted;
+    margin: 0 20px 0 0;
+    flex: 1 0 20px;
+}
+
+h2:after {
+    margin: 0 0 0 20px;
+}
+.modal-login {
+    color: #636363;
+    width: 350px;
+}
+.modal-login .modal-content {
+    padding: 20px;
+    border-radius: 5px;
+    border: none;
+}
+.modal-login .modal-header {
+    border-bottom: none;
+    position: relative;
+    justify-content: center;
+}
+.modal-login h4 {
+    text-align: center;
+    font-size: 26px;
+}
+.modal-login  .form-group {
+    position: relative;
+}
+.modal-login i {
+    position: absolute;
+    left: 13px;
+    top: 11px;
+    font-size: 18px;
+}
+.modal-login .form-control {
+    padding-left: 40px;
+}
+.modal-login .form-control:focus {
+    border-color: #00ce81;
+}
+.modal-login .form-control, .modal-login .btn {
+    min-height: 40px;
+    border-radius: 3px; 
+}
+.modal-login .hint-text {
+    text-align: center;
+    padding-top: 10px;
+}
+.modal-login .close {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+}
+.modal-login .btn {
+    background: #00ce81;
+    border: none;
+    line-height: normal;
+}
+.modal-login .btn:hover, .modal-login .btn:focus {
+    background: #00bf78;
+}
+.modal-login .modal-footer {
+    background: #ecf0f1;
+    border-color: #dee4e7;
+    text-align: center;
+    margin: 0 -20px -20px;
+    border-radius: 5px;
+    font-size: 13px;
+    justify-content: center;
+}
+.modal-login .modal-footer a {
+    color: #999;
+}

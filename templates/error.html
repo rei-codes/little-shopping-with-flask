@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Merve's Artworks</title>
+	<meta charset="utf-8">
+	<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	<link href="https://fonts.googleapis.com/css?family=Amatic+SC|Roboto" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script></head>
+<body>
+	<!-- Navbar -->
+		<nav class="navbar navbar-expand-md flex-column navbar-dark" style="background-color: #FAA1A3;">
+		    <a class="navbar-brand align-self-center m-0 pb-3  pb-md-0" href="/" style="font-family: 'Amatic SC', cursive; font-size: 36pt;">Merve's Artworks</a>
+		    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+		        <span class="navbar-toggler-icon"></span>
+		    </button>
+		    <div class="collapse navbar-collapse justify-content-md-center w-100" id="navbarNav">
+		        <ul class="navbar-nav text-center">
+		            <li class="nav-item active" >
+		                <a class="nav-link" href="/">Store<span class="sr-only">(current)</span></a>
+		            </li>
+		            <li class="nav-item">
+		                <a class="nav-link" href="#">Works</a>
+		            </li>
+		            <li class="nav-item">
+		                <a class="nav-link" href="#">About me</a>
+		            </li>
+		            <li class="nav-item">
+		                <a class="nav-link" href="#">Contact</a>
+		            </li>
+		        </ul>
+		    </div></nav>
+	<!-- Error Messages -->
+		<content class="container" style="text-align: center;">
+			<br><h2>Hata!</h2>
+			<br><h3>{{e}}</h3><br><hr>
+			{% if a == 403 %}
+			<h3>Türkçesi: Gençler kimlikleri görelim?</h3>
+			{% endif %}
+			{% if a == 404 %}
+			<h3>Türkçesi: Yanlış yerde dolaşıyorsun</h3>
+			{% endif %}
+			{% if a == 410 %}
+			<h3>Türkçesi: Bu sayfa kullanımdan kalktı</h3>
+			{% endif %}
+			{% if a == 500 %}
+			<h3>Türkçesi: Sorun sen de değil, ben de..</h3>
+			{% endif %}
+		</content>
+	<!-- Footer -->
+		<footer class="container-fluid text-center" style="background-color: #333333; margin-top: 35px;">
+			<div class="container" style="padding-bottom: 10px;">
+		      <div class="icon-container">
+		        <a href="#" id="facebook-link">
+		          <span class="fa fa-facebook fa-2x" aria-hidden="true"></span>
+		        </a>
+		        <a href="#" id="twitter-link" >
+		          <span class="fa fa-twitter fa-2x" aria-hidden="true" style="filter: grayscale();"></span>
+		        </a>
+		        <a href="#" id="instagram-link">
+		          <span class="fa fa-instagram fa-2x" aria-hidden="true" style="filter: grayscale();"></span>
+		        </a>
+		      </div>
+		      <p style="color: white;margin-top: -20px">All Rights Reserved © 2018</p>
+		    </div></footer>
+</body>
+</html>
